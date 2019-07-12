@@ -8,25 +8,22 @@
  * @format
  */
 
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 import {
+  Button,
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
   StatusBar
-} from 'react-native';
+} from "react-native";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions
-} from 'react-native/Libraries/NewAppScreen';
+import { Header, Colors } from "react-native/Libraries/NewAppScreen";
+import Details from "./Details";
 
-const App = () => {
+const App = ({ navigation }) => {
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
@@ -42,32 +39,10 @@ const App = () => {
             </View>
           )}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+            <Button
+              title="Details"
+              onPress={() => navigation.navigate("Details")}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -88,30 +63,39 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.black
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: "400",
     color: Colors.dark
   },
   highlight: {
-    fontWeight: '700'
+    fontWeight: "700"
   },
   engine: {
-    position: 'absolute',
+    position: "absolute",
     right: 0
   },
   footer: {
     color: Colors.dark,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     padding: 4,
     paddingRight: 12,
-    textAlign: 'right'
+    textAlign: "right"
   }
 });
 
-export default App;
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: App
+  },
+  Details: {
+    screen: Details
+  }
+});
+
+export default createAppContainer(AppNavigator);
