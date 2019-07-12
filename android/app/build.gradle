@@ -133,6 +133,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // Detox - https://github.com/wix/Detox/blob/master/docs/Introduction.Android.md#2-add-detox-dependency-to-an-android-project
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -187,10 +191,20 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.annotation:annotation:1.1.0'
+    }
+}
+
 dependencies {
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    // Detox - https://github.com/wix/Detox/blob/master/docs/Introduction.Android.md#2-add-detox-dependency-to-an-android-project
+    androidTestImplementation('com.wix:detox:+') { transitive = true }
+    androidTestImplementation 'junit:junit:4.12'
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
