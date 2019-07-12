@@ -32,5 +32,16 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/RNNextExample/Build/Products/Debug-iphonesimulator/RNNextExample.app",
+        "build": "xcodebuild -workspace ios/RNNextExample.xcworkspace -scheme RNNextExample -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    },
+    "test-runner": "jest"
   }
 }
