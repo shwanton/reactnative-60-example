@@ -38,7 +38,7 @@ const App = ({ navigation }) => {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
-          <View style={styles.body}>
+          <View style={styles.body} testID="HOME_SCREEN">
             <Button
               title="Details"
               onPress={() => navigation.navigate("Details")}
